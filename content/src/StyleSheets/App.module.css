@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&display=swap');
+
+h1, h2, label {
+    font-weight: 300;
+}
+
+.app{
+    height: 100vh;
+    overflow-y: hidden;
+
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.stage{
+    top:0;
+    position: fixed;
+    z-index: -2;
+}
+
+.pageAbove{
+    top: -100%;
+    opacity: 0;
+}
+
+.pageBelow{
+    top: 100%;
+    opacity: 0;
+}
+
+.pageCurrent {
+    top: 0;
+    opacity: 1;
+}
+
+
+.transition {
+    transition: top 0.3s ease-out, opacity 0.3s ease-out;
+    
+}
+
+
+@media only screen and (max-width: 600px)  {
+    .app {
+        font-size: 3vw;
+    }
+}

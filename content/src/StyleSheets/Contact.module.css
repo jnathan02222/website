@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+
+.contact {
+    width: 50%;
+    font-size: 1.2em;
+}
+
+.text {
+    
+    font-size: 1em;
+}
+
+.shortInput {
+    font-size: 1em;
+    
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+   
+
+}
+
+.message {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1em;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+
+    resize: vertical;  
+    width: calc(100% - 1em); 
+    min-height: 10em;
+    max-height: 15em;
+    font-weight: 400;
+}
+.button {
+    background-color: rgb(250, 250, 250);
+    border-width: 1px;
+    border-color: black;
+    color: black;
+    
+    font-family: 'Nunito', sans-serif;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    padding: 0.5em;
+    
+}
+.button:hover {
+    background-color: rgb(240, 240, 240);
+    
+}
+
+
+.responseOk {
+    text-align: center;
+    font-size: 1.2em;   
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    background-color: #7fffd4;
+    border-radius: 0.5em;   
+    width: 38%;
+
+    animation: fadeInAnimation ease-out 0.8s;
+    animation-iteration-count: 1;
+}
+
+.responseError {
+    text-align: center;
+    font-size: 1.2em;   
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    background-color: rgb(255, 115, 64);
+    border-radius: 0.5em;       
+    width: 16%;
+
+    animation: fadeInAnimation ease-out 0.8s;
+    animation-iteration-count: 1;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}   
+
+.email {
+    font-size: 1em;
+}
+
+@media only screen and (max-width: 1000px)  {
+    .contact {
+        width: 70%;
+    }
+}
+@media only screen and (max-width: 600px)  {
+    .contact {
+        font-size: 1em;
+    }
+    .captcha {
+        transform:scale(0.7);
+        -webkit-transform:scale(0.7);
+        transform-origin:0 0;
+        -webkit-transform-origin:0 0
+    }
+    .button {
+        margin-top: -1em;
+    }
+    .responseOk {
+        width: 100%;
+    }
+    .responseError {
+        width: 100%;
+    }
+}

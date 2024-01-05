@@ -1,0 +1,42 @@
+.about {
+    width: 50%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+.text {
+    font-size: 1em;
+
+}
+
+.image {
+    border-radius: 50%;
+    border-style: solid;
+
+    width: 35%;
+    margin-left: 2em;
+}
+
+@media only screen and (max-width: 1200px)  {
+    .about {
+        flex-direction: column-reverse;
+    
+    }
+    .image {
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 1000px)  {
+    .about {
+        width: 70%;
+    }
+}
+@media only screen and (max-width: 600px)  {
+    .about {
+        font-size: 1em;
+        
+    }
+}

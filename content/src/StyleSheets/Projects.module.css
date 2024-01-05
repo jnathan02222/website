@@ -1,0 +1,71 @@
+.projects {
+    width: 50%;
+    font-size: 1.2em;
+}
+.buttonWidget {
+    margin-top: 1.2em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2em;
+}
+.button {   
+    min-width: 10em;
+    text-align: center;
+    
+    flex: 1;
+
+    padding: 0.5em;
+    min-height: 6em;
+    
+
+    cursor: pointer;
+
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+
+    font-size: 1em;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+
+
+}
+
+.projectDescription {
+    
+    min-height: 19.2em;
+    padding: 1.2em;    
+    border-style: solid;
+    border-width: 2px;
+    background-color: white;
+
+    opacity: 0;
+}
+
+.show {
+    opacity: 1;
+    transition: opacity 1s ease-in;    
+}
+
+@media only screen and (max-width: 1480px)  {
+
+    .button {
+        min-height: 3em;
+    }
+}
+@media only screen and (max-width: 1000px)  {
+    .projects {
+        width: 70%;
+    }
+    .button {
+        min-width: 10em;
+    }
+}
+@media only screen and (max-width: 600px)  {
+    .projects {
+        font-size: 1em;
+    }
+}

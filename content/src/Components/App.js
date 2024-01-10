@@ -6,26 +6,34 @@ import Canvas from './Canvas.js'
 import appStyles from '../StyleSheets/App.module.css'
 import React, {useState, useRef, useEffect} from 'react'
 import Menu from '../Components/Menu.js'
-import CenterBuffer from './CenterBuffer.js'
 function App() {
   const [pageNum, setPageNum] = useState(0);
-  const [appDimensions, setAppDimensions] = useState({});
-  const app = useRef();
+  const [appDimensions, setAppDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const [menuHeight, setMenuHeight] = useState(0);
+  const appRef = useRef();
+  const menuRef = useRef();
 
   const pagePositions = useRef([appStyles.pageCurrent, appStyles.pageBelow, appStyles.pageBelow, appStyles.pageBelow]);
   
-  
+  function resizeHandler(){
+    updateCanvas();
+    const computedMenuHeight = parseInt(( window.getComputedStyle(menuRef.current).getPropertyValue("height") ).replace("px", ""));
+    setMenuHeight(computedMenuHeight);
+  }
 
   function updateCanvas(){
-    setAppDimensions({ }); //Create an object so state updates
+    const appWidth = parseInt(( window.getComputedStyle(appRef.current).getPropertyValue("width") ).replace("px", ""));
+    const appHeight = parseInt(( window.getComputedStyle(appRef.current).getPropertyValue("height") ).replace("px", ""));
+
+    setAppDimensions({ width: appWidth, height: appHeight}); //Create an object so state updates
   }
   
+  //Future fix? Move to Canvas component so the whole thing doesn't rerender constantly on resize
   useEffect(
     () => {
-      (app.current).style.fontSize = 16*((window.screen.width) / 1920) + "px";
       
-      window.addEventListener('resize', updateCanvas);
-      
+      window.addEventListener('resize', resizeHandler);
+      resizeHandler();
     }
   ,[]);
 
@@ -56,14 +64,15 @@ function App() {
 
   return (
  
-    <div ref={app} className={appStyles.app}>
-      <Menu currentPage={pageNum} menuHandler={handleMenu}></Menu>
-      <CenterBuffer></CenterBuffer>
-      <Home position={(pagePositions.current)[0]} menuHandler={handleMenu}></Home>
-      <About position={(pagePositions.current)[1]} menuHandler={handleMenu}></About>
-      <Projects position={(pagePositions.current)[2]} menuHandler={handleMenu}></Projects>
-      <Contact position={(pagePositions.current)[3]} menuHandler={handleMenu}></Contact>
-      <Canvas dimensions={appDimensions}></Canvas>
+    <div ref={appRef} className={appStyles.app}>
+      <div ref={menuRef} className={appStyles.menu}>
+        <Menu currentPage={pageNum} menuHandler={handleMenu}></Menu>
+      </div>
+      <Home menuHeight={menuHeight} position={(pagePositions.current)[0]} menuHandler={handleMenu}></Home>
+      <About menuHeight={menuHeight} position={(pagePositions.current)[1]} menuHandler={handleMenu}></About>
+      <Projects menuHeight={menuHeight} position={(pagePositions.current)[2]} menuHandler={handleMenu}></Projects>
+      <Contact menuHeight={menuHeight} position={(pagePositions.current)[3]} menuHandler={handleMenu}></Contact>
+      <Canvas menuHeight={menuHeight} dimensions={appDimensions}></Canvas>
     </div>
   
   );

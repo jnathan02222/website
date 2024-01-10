@@ -9,27 +9,23 @@ function Canvas(props){
     const scribbleToGridRatio = 0.15;
     const [scribbles, setScribbles] = useState([]);
     const [endpoints, setEndpoints] = useState([]);
-    const canvasManagerRef = useRef(new CanvasManager(gridWidth, 0.70, window.innerHeight/window.innerWidth));
+    const canvasManagerRef = useRef(new CanvasManager(gridWidth, 0.70, (props.dimensions)["height"]/(props.dimensions)["width"]));
     
-    function is_touch_enabled() {
-        return ( 'ontouchstart' in window ) || 
-                ( navigator.maxTouchPoints > 0 ) ||
-                ( navigator.msMaxTouchPoints > 0 );
-    }
+    
       
     useEffect(() => {
         //Adjust based on dimensions
         let contentWidthPercent = 0.75;
-        if(window.innerWidth < 1000){
+        if((props.dimensions)["width"] < 1000){
             contentWidthPercent = 0.85;
         }
-        (canvasManagerRef.current).reset(gridWidth, contentWidthPercent, window.innerHeight/window.innerWidth);
+        (canvasManagerRef.current).reset(gridWidth, contentWidthPercent, (props.dimensions)["height"]/(props.dimensions)["width"]);
 
         //Animation code
         let animationFrameId;
         const animate = () => {
             (canvasManagerRef.current).step();
-            (canvasManagerRef.current).updateHeight(window.innerHeight/window.innerWidth);
+            (canvasManagerRef.current).updateHeight((props.dimensions)["height"]/(props.dimensions)["width"]);
             setScribbles((canvasManagerRef.current).scribbleList);
             setEndpoints((canvasManagerRef.current).endpoints);
             animationFrameId = window.requestAnimationFrame(animate);
@@ -47,21 +43,21 @@ function Canvas(props){
     return (
         <Stage 
         className={appStyles.stage}
-        width={window.innerWidth}
-        height={window.innerHeight}
+        width={(props.dimensions)["width"]}
+        height={(props.dimensions)["height"]}
         >
             <Layer>
                 {scribbles.map((scribble, i) => (
-                     //Scale to grid size
+                        //Scale to grid size
                     <Line points={(scribble.points).map(
                         (pos, i) => 
                         
-                            pos*(window.innerWidth/gridWidth) + (window.innerHeight/2) * (i%2)
+                            pos*((props.dimensions)["width"]/gridWidth) + ((props.dimensions)["height"]/2) * (i%2)
 
                         )}
                         key={i}
                         stroke={color}
-                        strokeWidth={2*(window.innerWidth/gridWidth)*scribbleToGridRatio} //(window.innerWidth/gridWidth)*scribbleToGridRatio
+                        strokeWidth={2*((props.dimensions)["width"]/gridWidth)*scribbleToGridRatio} //((props.dimensions)["width"]/gridWidth)*scribbleToGridRatio
                         tension={0}
                         lineCap="round"
                         lineJoin="round"
@@ -74,9 +70,9 @@ function Canvas(props){
                     (point, i) => (
                         <Circle
                             key={i}
-                            x={point.x *(window.innerWidth/gridWidth)}
-                            y={point.y *(window.innerWidth/gridWidth) + (window.innerHeight/2)}
-                            radius={point.radius * (window.innerWidth/gridWidth)*scribbleToGridRatio}
+                            x={point.x *((props.dimensions)["width"]/gridWidth)}
+                            y={point.y *((props.dimensions)["width"]/gridWidth) + ((props.dimensions)["height"]/2)}
+                            radius={point.radius * ((props.dimensions)["width"]/gridWidth)*scribbleToGridRatio}
                             fill={color}
                         >  
                         </Circle>
@@ -85,6 +81,7 @@ function Canvas(props){
                     
                 }
             </Layer>
+            
         </Stage>
     );
 }

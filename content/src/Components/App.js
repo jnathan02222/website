@@ -6,24 +6,26 @@ import Canvas from './Canvas.js'
 import appStyles from '../StyleSheets/App.module.css'
 import React, {useState, useRef, useEffect} from 'react'
 import Menu from '../Components/Menu.js'
-
+import CenterBuffer from './CenterBuffer.js'
 function App() {
   const [pageNum, setPageNum] = useState(0);
   const [appDimensions, setAppDimensions] = useState({});
-
+  const app = useRef();
 
   const pagePositions = useRef([appStyles.pageCurrent, appStyles.pageBelow, appStyles.pageBelow, appStyles.pageBelow]);
-
+  
   
 
   function updateCanvas(){
     setAppDimensions({ }); //Create an object so state updates
   }
-
+  
   useEffect(
     () => {
-
+      (app.current).style.fontSize = 16*((window.screen.width) / 1920) + "px";
+      
       window.addEventListener('resize', updateCanvas);
+      
     }
   ,[]);
 
@@ -54,9 +56,9 @@ function App() {
 
   return (
  
-    <div className={appStyles.app}>
+    <div ref={app} className={appStyles.app}>
       <Menu currentPage={pageNum} menuHandler={handleMenu}></Menu>
-
+      <CenterBuffer></CenterBuffer>
       <Home position={(pagePositions.current)[0]} menuHandler={handleMenu}></Home>
       <About position={(pagePositions.current)[1]} menuHandler={handleMenu}></About>
       <Projects position={(pagePositions.current)[2]} menuHandler={handleMenu}></Projects>

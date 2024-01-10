@@ -33,7 +33,7 @@
     font-size: 0.15em;
 }
 
-@media only screen and (max-width: 1650px)  {
+@media only screen and (max-width: 1680px)  {
     .home {
         width: 840px;
     }

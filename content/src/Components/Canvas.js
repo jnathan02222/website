@@ -5,16 +5,21 @@ import CanvasManager from './CanvasClasses/CanvasManager.js'
 
 function Canvas(props){
     const gridWidth = 40;
-    const color = "#ccffee"; //d2e0fc
+    const color = "000"; //d2e0fc //ccffee
     const scribbleToGridRatio = 0.15;
     const [scribbles, setScribbles] = useState([]);
     const [endpoints, setEndpoints] = useState([]);
     const canvasManagerRef = useRef(new CanvasManager(gridWidth, 0.70, window.innerHeight/window.innerWidth));
     
-
+    function is_touch_enabled() {
+        return ( 'ontouchstart' in window ) || 
+                ( navigator.maxTouchPoints > 0 ) ||
+                ( navigator.msMaxTouchPoints > 0 );
+    }
+      
     useEffect(() => {
         //Adjust based on dimensions
-        let contentWidthPercent = 0.70;
+        let contentWidthPercent = 0.75;
         if(window.innerWidth < 1000){
             contentWidthPercent = 0.85;
         }
